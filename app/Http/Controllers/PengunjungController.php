@@ -83,14 +83,14 @@ class PengunjungController extends Controller
         $keran->total = $request->qty * $harga;
         $keran->save();
 
-        return redirect('keranjang/checkout/view');
+        return redirect()->back();
 
     }
 
     public function checkout(){
         $keranj = \App\keranjang::where('user_id',Auth::user()->id)->update(['status'=>1]);
 
-        return redirect()->back();
+        return redirect('keranjang/checkout/view');
 
     }
 

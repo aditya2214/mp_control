@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('keranjang')}}">keranjang</a>
+                            <a class="btn btn-sm btn-outline-secondary" href="{{url('keranjang')}}">keranjang</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('keranjang/checkout/view')}}">Checkout</a>

@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $produk = \App\Produk::all();
+        $produk = \App\Produk::OrderBy('created_at','DESC')->paginate(24);
         return view('home',compact('produk'));
     }
 }

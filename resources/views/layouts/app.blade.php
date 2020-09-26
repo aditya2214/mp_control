@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Trafalgar Shop</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,31 +19,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- <link href="{{ asset('css/fontawesome.css') }}" rel="stylesheet"> -->
-    <style type="text/css">
-    .preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
-      background-color: #fff;
-    }
-    .preloader .loading {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-      font: 14px arial;
-    }
-    </style>
+    
 </head>
 <body style="background-image: url('http://localhost/mp_control/public/img/1.jpg');">
-    <div class="preloader">
-      <div class="loading">
-        <img src="{{url('img/load1.gif')}}" width="100%">
-      </div>
-    </div>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -135,11 +113,6 @@
     </div>
 </body>
 <script type="text/javascript" src="{{ asset('/js/jquery.js') }}"></script>
-<script>
-    $(document).ready(function(){
-      $(".preloader").fadeOut();
-    })
-</script>
 @yield('script')
 </html>
     

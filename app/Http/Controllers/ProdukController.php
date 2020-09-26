@@ -184,5 +184,55 @@ class ProdukController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControll
         ));
     }
 
+    public function destroy(Request $request, $id)
+    {
+        $slug = $this->getSlug($request);
+
+        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
+
+        // Init array of IDs
+        $ids = [];
+        if (empty($id)) {
+            // Bulk delete, get IDs from POST
+            $ids = explode(',', $request->ids);
+        } else {
+            // Single item delete, get ID from URL
+            $ids[] = $id;
+        }
+        foreach ($ids as $id) {
+            $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
+            $keranjang = $data->id;
+            if (\App\Keranjang::where('id_produk',$keranjang)->first()) {
+                # code...
+                return redirect()->back()->with(['message' => "Produk ini dikeranjang sesorang masih ada !", 'alert-type' => 'error']);
+            }
+            // Check permission
+            $this->authorize('delete', $data);
+
+            $model = app($dataType->model_name);
+            if (!($model && in_array(SoftDeletes::class, class_uses_recursive($model)))) {
+                $this->cleanup($dataType, $data);
+            }
+        }
+
+        $displayName = count($ids) > 1 ? $dataType->getTranslatedAttribute('display_name_plural') : $dataType->getTranslatedAttribute('display_name_singular');
+
+        $res = $data->destroy($ids);
+        $data = $res
+            ? [
+                'message'    => __('voyager::generic.successfully_deleted')." {$displayName}",
+                'alert-type' => 'success',
+            ]
+            : [
+                'message'    => __('voyager::generic.error_deleting')." {$displayName}",
+                'alert-type' => 'error',
+            ];
+
+        if ($res) {
+            event(new BreadDataDeleted($dataType, $data));
+        }
+
+        return redirect()->route("voyager.{$dataType->slug}.index")->with($data);
+    }
 
 }

@@ -11,7 +11,7 @@
                             <a class="nav-link" href="{{url('keranjang')}}">keranjang</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{url('keranjang/checkout/view')}}">Checkout</a>
+                            <a class="btn btn-sm btn-outline-secondary" href="{{url('keranjang/checkout/view')}}">Checkout</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" >Detail Pembayaran</a>
